@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WorldTemp — MCP Global Weather Chatbot</title>
+    <meta name="description" content="Live weather chatbot for any city in the world, powered by MCP server and Open-Meteo APIs.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="app-container">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-container">
+                    <div class="logo-icon">🌍</div>
+                    <div class="logo-text">
+                        <h1>WorldTemp</h1>
+                        <span>MCP Global Weather Bot</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MCP Connection Status -->
+            <div class="widget status-widget">
+                <div class="status-indicator">
+                    <span class="status-dot status-offline" id="statusDot"></span>
+                    <span class="status-label" id="statusLabel">MCP Server: Offline</span>
+                </div>
+            </div>
+
+            <!-- Unit Toggle -->
+            <div class="widget toggle-widget">
+                <h3>Temperature Unit</h3>
+                <div class="unit-toggle-container">
+                    <button class="unit-btn active" id="unitC" onclick="setUnit('C')">°C Celsius</button>
+                    <button class="unit-btn" id="unitF" onclick="setUnit('F')">°F Fahrenheit</button>
+                </div>
+            </div>
+
+            <!-- Popular World Cities -->
+            <div class="widget cities-widget">
+                <h3>Popular Cities Worldwide</h3>
+                <div class="cities-grid">
+                    <!-- India -->
+                    <button class="city-chip" onclick="quickSearch('Mumbai')">🇮🇳 Mumbai</button>
+                    <button class="city-chip" onclick="quickSearch('New Delhi')">🇮🇳 New Delhi</button>
+                    <!-- USA -->
+                    <button class="city-chip" onclick="quickSearch('New York')">🇺🇸 New York</button>
+                    <button class="city-chip" onclick="quickSearch('Los Angeles')">🇺🇸 Los Angeles</button>
+                    <!-- UK -->
+                    <button class="city-chip" onclick="quickSearch('London')">🇬🇧 London</button>
+                    <!-- UAE -->
+                    <button class="city-chip" onclick="quickSearch('Dubai')">🇦🇪 Dubai</button>
+                    <!-- Japan -->
+                    <button class="city-chip" onclick="quickSearch('Tokyo')">🇯🇵 Tokyo</button>
+                    <!-- France -->
+                    <button class="city-chip" onclick="quickSearch('Paris')">🇫🇷 Paris</button>
+                    <!-- Australia -->
+                    <button class="city-chip" onclick="quickSearch('Sydney')">🇦🇺 Sydney</button>
+                    <!-- Singapore -->
+                    <button class="city-chip" onclick="quickSearch('Singapore')">🇸🇬 Singapore</button>
+                    <!-- Canada -->
+                    <button class="city-chip" onclick="quickSearch('Toronto')">🇨🇦 Toronto</button>
+                    <!-- Germany -->
+                    <button class="city-chip" onclick="quickSearch('Berlin')">🇩🇪 Berlin</button>
+                </div>
+            </div>
+
+            <div class="sidebar-footer">
+                <p>Powered by MCP + FastAPI + Open-Meteo</p>
+                <p>Free & Open — No API Key Required</p>
+            </div>
+        </aside>
+
+        <!-- Chat Area -->
+        <main class="chat-container">
+            <header class="chat-header">
+                <div class="bot-info">
+                    <div class="bot-avatar">🌐</div>
+                    <div class="bot-title">
+                        <h2>Global Weather Assistant</h2>
+                        <span class="active-indicator">Online — Any City, Anywhere</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Messages -->
+            <div class="chat-messages" id="chatMessages">
+                <div class="message bot-message animate-fade-in">
+                    <div class="message-content">
+                        <p>Hello! 🌍 Welcome to <strong>WorldTemp</strong> — your global weather chatbot.</p>
+                        <p>I'm connected to an <strong>MCP Weather Server</strong> that can fetch live weather data for <strong>any city in the world!</strong></p>
+                        <p>Try asking me things like:<br>
+                            <em>"What is the temperature in Tokyo?"</em><br>
+                            <em>"How hot is Dubai right now?"</em><br>
+                            <em>"Weather in Sitamarhi"</em>
+                        </p>
+                    </div>
+                    <span class="message-time" id="initTime">10:00 AM</span>
+                </div>
+            </div>
+
+            <!-- Typing Indicator -->
+            <div class="typing-indicator-container hidden" id="typingIndicator">
+                <div class="typing-bubble">
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+            </div>
+
+            <!-- Input -->
+            <footer class="chat-input-area">
+                <form id="chatForm" onsubmit="sendMessage(event)">
+                    <input
+                        type="text"
+                        id="userInput"
+                        placeholder="Ask weather of any city in the world... (e.g. 'Weather in Paris')"
+                        autocomplete="off"
+                        required
+                    />
+                    <button type="submit" class="send-btn" id="sendBtn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                        </svg>
+                    </button>
+                </form>
+            </footer>
+        </main>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
